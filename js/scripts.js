@@ -1,33 +1,29 @@
-$(document).ready(function() {
-    function newItem() {
-        let li = $("<li></li>");
-        let inputValue = $("#input").val();
-        let text = $("<span></span>").text(inputValue)
-        li.append(text);
-        
-        if (inputValue === '') {
-            alert("This cannot be left empty");
-        } else {
-            let list = $("#list");
-            list.append(li);
-        }
+
+function newItem(){
+    
+    let li = $("<li></li>");
+    let inputValue = $("#input").val();
+    li.append(inputValue);
+    
+    if (inputValue === '') {
+        alert("This cannot be left empty");
+    } else {
+       $("#list").append(li);
     }
 
     function crossOut() {
-        $(this).toggleClass("strike");
+        li.toggleClass(".strike");
     }
 
-    $(document).on("dblclick", "li", crossOut);
-
-    function deleteListItem() {
-        $(this).parent().addClass("delete");
-    }
+    li.on("dblclick", crossOut);
 
     let crossOutButton = $("<button></button>").text("X");
-    
-    crossOutButton.on("click", deleteListItem);
+    li.append(crossOutButton);
 
-    let li = $("<li></li>").append(crossOutButton);
+    crossOutButton.on("click", deleteListItem);
+    function deleteListItem() {
+        li.addClass("delete");
+    }
 
     $("#list").sortable();
-});
+};
